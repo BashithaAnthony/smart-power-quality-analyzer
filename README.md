@@ -28,10 +28,11 @@ Real-time power quality monitoring system designed to measure RMS voltage, RMS c
 ## My Contributions
 
 * Team Leader
-* Developed signal acquisition and processing architecture
 * Implemented FFT-based power quality analysis
 * Designed embedded firmware for STM32 and ESP32 integration
-* Contributed to hardware and PCB design
+* Designed the PCB using Altium
+* Assited in enclosure designing
+* Assisted signal acquisition and processing architecture
 
 ## Project Status
 
