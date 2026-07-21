@@ -1,0 +1,265 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+
+    "devices": {
+      "PQ-3PH-001": {
+        "live": {
+          ".read": "auth !== null",
+          ".write": "auth !== null && auth.uid === 'QUR81xrmojUZu8Y9pJ6sMqKewo23'"
+        },
+
+        "sessions": {
+          ".read": "auth !== null",
+          ".write": "auth !== null && auth.uid === 'QUR81xrmojUZu8Y9pJ6sMqKewo23'"
+        },
+
+        "sessionIndex": {
+          ".read": "auth !== null && query.orderByChild === 'state' && query.equalTo === 'complete'",
+          ".indexOn": ["state"],
+          "$sessionKey": {
+            ".read": "auth !== null && auth.uid === 'QUR81xrmojUZu8Y9pJ6sMqKewo23' && $sessionKey.matches(/^s_[0-9]+$/)",
+            ".write": "auth !== null && $sessionKey.matches(/^s_[0-9]+$/) && ((auth.uid === 'QUR81xrmojUZu8Y9pJ6sMqKewo23' && newData.exists()) || (auth.uid !== 'QUR81xrmojUZu8Y9pJ6sMqKewo23' && data.child('state').val() === 'complete' && !newData.exists()))",
+            ".validate": "$sessionKey === 's_' + newData.child('sessionId').val() && newData.hasChildren(['schemaVersion', 'state', 'deviceId', 'sessionId', 'persistentState', 'retainedCount', 'totalStored', 'overwrittenCount', 'firstLogicalIndex', 'lastLogicalIndex', 'truncated', 'recoveredIncomplete', 'countersPartial', 'chunkCount', 'uploadStartedAt']) && ((newData.child('schemaVersion').val() === 1 && !newData.child('sessionTimeValid').exists() && !newData.child('sessionStartEpochMs').exists()) || (newData.child('schemaVersion').val() === 2 && newData.hasChild('sessionTimeValid') && ((newData.child('sessionTimeValid').val() === true && newData.child('sessionStartEpochMs').isString() && newData.child('sessionStartEpochMs').val().matches(/^[1-9][0-9]{12,19}$/)) || (newData.child('sessionTimeValid').val() === false && !newData.child('sessionStartEpochMs').exists())))) && ((newData.child('state').val() === 'uploading' && !newData.child('uploadCompletedAt').exists()) || (newData.child('state').val() === 'complete' && newData.child('uploadCompletedAt').isNumber())) && ((newData.child('persistentState').val() === 'Finalized' && newData.child('recoveredIncomplete').val() === false) || (newData.child('persistentState').val() === 'RecoveredIncomplete' && newData.child('recoveredIncomplete').val() === true)) && newData.child('chunkCount').val() * 8 >= newData.child('retainedCount').val() && (newData.child('chunkCount').val() - 1) * 8 < newData.child('retainedCount').val() && root.child('devices').child('PQ-3PH-001').child('sessionData').child($sessionKey).child('manifest').exists() && newData.child('schemaVersion').val() === root.child('devices').child('PQ-3PH-001').child('sessionData').child($sessionKey).child('manifest').child('schemaVersion').val() && newData.child('state').val() === root.child('devices').child('PQ-3PH-001').child('sessionData').child($sessionKey).child('manifest').child('state').val() && newData.child('sessionId').val() === root.child('devices').child('PQ-3PH-001').child('sessionData').child($sessionKey).child('manifest').child('sessionId').val() && newData.child('persistentState').val() === root.child('devices').child('PQ-3PH-001').child('sessionData').child($sessionKey).child('manifest').child('persistentState').val() && newData.child('retainedCount').val() === root.child('devices').child('PQ-3PH-001').child('sessionData').child($sessionKey).child('manifest').child('retainedCount').val() && newData.child('totalStored').val() === root.child('devices').child('PQ-3PH-001').child('sessionData').child($sessionKey).child('manifest').child('totalStored').val() && newData.child('overwrittenCount').val() === root.child('devices').child('PQ-3PH-001').child('sessionData').child($sessionKey).child('manifest').child('overwrittenCount').val() && newData.child('firstLogicalIndex').val() === root.child('devices').child('PQ-3PH-001').child('sessionData').child($sessionKey).child('manifest').child('firstLogicalIndex').val() && newData.child('lastLogicalIndex').val() === root.child('devices').child('PQ-3PH-001').child('sessionData').child($sessionKey).child('manifest').child('lastLogicalIndex').val() && newData.child('truncated').val() === root.child('devices').child('PQ-3PH-001').child('sessionData').child($sessionKey).child('manifest').child('truncated').val() && newData.child('recoveredIncomplete').val() === root.child('devices').child('PQ-3PH-001').child('sessionData').child($sessionKey).child('manifest').child('recoveredIncomplete').val() && newData.child('countersPartial').val() === root.child('devices').child('PQ-3PH-001').child('sessionData').child($sessionKey).child('manifest').child('countersPartial').val() && newData.child('chunkCount').val() === root.child('devices').child('PQ-3PH-001').child('sessionData').child($sessionKey).child('manifest').child('chunkCount').val() && newData.child('sessionTimeValid').val() === root.child('devices').child('PQ-3PH-001').child('sessionData').child($sessionKey).child('manifest').child('sessionTimeValid').val() && (newData.child('schemaVersion').val() === 1 || (newData.child('sessionTimeValid').val() === true && newData.child('sessionStartEpochMs').val() === root.child('devices').child('PQ-3PH-001').child('sessionData').child($sessionKey).child('manifest').child('sessionStartEpochMs').val()) || (newData.child('sessionTimeValid').val() === false && !newData.child('sessionStartEpochMs').exists() && root.child('devices').child('PQ-3PH-001').child('sessionData').child($sessionKey).child('manifest').child('sessionStartEpochMs').val() === '0'))",
+
+            "schemaVersion": {
+              ".validate": "newData.isNumber() && (newData.val() === 1 || newData.val() === 2)"
+            },
+            "state": {
+              ".validate": "newData.isString() && (newData.val() === 'uploading' || newData.val() === 'complete')"
+            },
+            "deviceId": {
+              ".validate": "newData.isString() && newData.val() === 'PQ-3PH-001'"
+            },
+            "sessionId": {
+              ".validate": "newData.isString() && newData.val().matches(/^[1-9][0-9]{0,19}$/)"
+            },
+            "persistentState": {
+              ".validate": "newData.isString() && (newData.val() === 'Finalized' || newData.val() === 'RecoveredIncomplete')"
+            },
+            "retainedCount": {
+              ".validate": "newData.isNumber() && newData.val() % 1 === 0 && newData.val() >= 1 && newData.val() <= 2674"
+            },
+            "totalStored": {
+              ".validate": "newData.isString() && newData.val().matches(/^(0|[1-9][0-9]{0,19})$/)"
+            },
+            "overwrittenCount": {
+              ".validate": "newData.isString() && newData.val().matches(/^(0|[1-9][0-9]{0,19})$/)"
+            },
+            "firstLogicalIndex": {
+              ".validate": "newData.isString() && newData.val().matches(/^(0|[1-9][0-9]{0,19})$/)"
+            },
+            "lastLogicalIndex": {
+              ".validate": "newData.isString() && newData.val().matches(/^(0|[1-9][0-9]{0,19})$/)"
+            },
+            "truncated": {
+              ".validate": "newData.isBoolean()"
+            },
+            "recoveredIncomplete": {
+              ".validate": "newData.isBoolean()"
+            },
+            "countersPartial": {
+              ".validate": "newData.isBoolean()"
+            },
+            "chunkCount": {
+              ".validate": "newData.isNumber() && newData.val() % 1 === 0 && newData.val() >= 1 && newData.val() <= 335"
+            },
+            "sessionTimeValid": {
+              ".validate": "newData.parent().child('schemaVersion').val() === 2 && newData.isBoolean()"
+            },
+            "sessionStartEpochMs": {
+              ".validate": "newData.parent().child('schemaVersion').val() === 2 && newData.parent().child('sessionTimeValid').val() === true && newData.isString() && newData.val().matches(/^[1-9][0-9]{12,19}$/)"
+            },
+            "uploadStartedAt": {
+              ".validate": "newData.isNumber() && newData.val() > 0 && newData.val() <= now"
+            },
+            "uploadCompletedAt": {
+              ".validate": "newData.parent().child('state').val() === 'complete' && newData.isNumber() && newData.val() > 0 && newData.val() <= now"
+            },
+            "$other": {
+              ".validate": false
+            }
+          }
+        },
+
+        "sessionData": {
+          "$sessionKey": {
+            ".read": "auth !== null && $sessionKey.matches(/^s_[0-9]+$/) && (auth.uid === 'QUR81xrmojUZu8Y9pJ6sMqKewo23' || (data.child('manifest').child('state').val() === 'complete' && (data.child('manifest').child('schemaVersion').val() === 1 || data.child('manifest').child('schemaVersion').val() === 2)))",
+            ".write": "auth !== null && auth.uid !== 'QUR81xrmojUZu8Y9pJ6sMqKewo23' && $sessionKey.matches(/^s_[0-9]+$/) && data.child('manifest').child('state').val() === 'complete' && !newData.exists()",
+
+            "manifest": {
+              ".write": "auth !== null && auth.uid === 'QUR81xrmojUZu8Y9pJ6sMqKewo23' && $sessionKey.matches(/^s_[0-9]+$/) && newData.exists()",
+              ".validate": "$sessionKey === 's_' + newData.child('sessionId').val() && newData.hasChildren(['schemaVersion', 'state', 'deviceId', 'sessionId', 'persistentState', 'recordFormat', 'recordSize', 'recordsPerChunk', 'chunkCount', 'nextChunk', 'uploadedRecords', 'retainedCount', 'totalStored', 'overwrittenCount', 'firstLogicalIndex', 'lastLogicalIndex', 'firstStm32Sequence', 'lastStm32Sequence', 'truncated', 'recoveredIncomplete', 'countersPartial', 'sourceMetadataGeneration', 'uploadStartedAt', 'manifestCrc32c']) && ((newData.child('schemaVersion').val() === 1 && !newData.child('sessionTimeValid').exists() && !newData.child('sessionStartEpochMs').exists() && !newData.child('sessionStartCaptureTimestampUs').exists() && !newData.child('sessionEndTimeValid').exists() && !newData.child('sessionEndEpochMs').exists() && !newData.child('sessionBootId').exists() && !newData.child('timeSource').exists()) || (newData.child('schemaVersion').val() === 2 && newData.hasChildren(['sessionTimeValid', 'sessionStartEpochMs', 'sessionStartCaptureTimestampUs', 'sessionEndTimeValid', 'sessionBootId', 'timeSource']) && newData.child('timeSource').val() === 'ntp' && ((newData.child('sessionTimeValid').val() === true && newData.child('sessionStartEpochMs').isString() && newData.child('sessionStartEpochMs').val().matches(/^[1-9][0-9]{12,19}$/)) || (newData.child('sessionTimeValid').val() === false && newData.child('sessionStartEpochMs').val() === '0')) && ((newData.child('sessionEndTimeValid').val() === true && newData.child('sessionEndEpochMs').isString() && newData.child('sessionEndEpochMs').val().matches(/^[1-9][0-9]{12,19}$/)) || (newData.child('sessionEndTimeValid').val() === false && !newData.child('sessionEndEpochMs').exists())))) && ((newData.child('state').val() === 'uploading' && !newData.child('uploadCompletedAt').exists()) || (newData.child('state').val() === 'complete' && newData.child('uploadCompletedAt').isNumber() && newData.child('nextChunk').val() === newData.child('chunkCount').val() && newData.child('uploadedRecords').val() === newData.child('retainedCount').val())) && ((newData.child('persistentState').val() === 'Finalized' && newData.child('recoveredIncomplete').val() === false) || (newData.child('persistentState').val() === 'RecoveredIncomplete' && newData.child('recoveredIncomplete').val() === true)) && newData.child('chunkCount').val() * 8 >= newData.child('retainedCount').val() && (newData.child('chunkCount').val() - 1) * 8 < newData.child('retainedCount').val() && newData.child('nextChunk').val() >= 0 && newData.child('nextChunk').val() <= newData.child('chunkCount').val() && newData.child('uploadedRecords').val() === (newData.child('nextChunk').val() === newData.child('chunkCount').val() ? newData.child('retainedCount').val() : newData.child('nextChunk').val() * 8)",
+
+              "schemaVersion": {
+                ".validate": "newData.isNumber() && (newData.val() === 1 || newData.val() === 2)"
+              },
+              "state": {
+                ".validate": "newData.isString() && (newData.val() === 'uploading' || newData.val() === 'complete')"
+              },
+              "deviceId": {
+                ".validate": "newData.isString() && newData.val() === 'PQ-3PH-001'"
+              },
+              "sessionId": {
+                ".validate": "newData.isString() && newData.val().matches(/^[1-9][0-9]{0,19}$/)"
+              },
+              "persistentState": {
+                ".validate": "newData.isString() && (newData.val() === 'Finalized' || newData.val() === 'RecoveredIncomplete')"
+              },
+              "recordFormat": {
+                ".validate": "newData.isString() && newData.val() === 'PQR1'"
+              },
+              "recordSize": {
+                ".validate": "newData.isNumber() && newData.val() === 4432"
+              },
+              "recordsPerChunk": {
+                ".validate": "newData.isNumber() && newData.val() === 8"
+              },
+              "chunkCount": {
+                ".validate": "newData.isNumber() && newData.val() % 1 === 0 && newData.val() >= 1 && newData.val() <= 335"
+              },
+              "nextChunk": {
+                ".validate": "newData.isNumber() && newData.val() % 1 === 0"
+              },
+              "uploadedRecords": {
+                ".validate": "newData.isNumber() && newData.val() % 1 === 0 && newData.val() >= 0 && newData.val() <= 2674"
+              },
+              "retainedCount": {
+                ".validate": "newData.isNumber() && newData.val() % 1 === 0 && newData.val() >= 1 && newData.val() <= 2674"
+              },
+              "totalStored": {
+                ".validate": "newData.isString() && newData.val().matches(/^(0|[1-9][0-9]{0,19})$/)"
+              },
+              "overwrittenCount": {
+                ".validate": "newData.isString() && newData.val().matches(/^(0|[1-9][0-9]{0,19})$/)"
+              },
+              "firstLogicalIndex": {
+                ".validate": "newData.isString() && newData.val().matches(/^(0|[1-9][0-9]{0,19})$/)"
+              },
+              "lastLogicalIndex": {
+                ".validate": "newData.isString() && newData.val().matches(/^(0|[1-9][0-9]{0,19})$/)"
+              },
+              "firstStm32Sequence": {
+                ".validate": "newData.isNumber() && newData.val() % 1 === 0 && newData.val() >= 0 && newData.val() <= 4294967295"
+              },
+              "lastStm32Sequence": {
+                ".validate": "newData.isNumber() && newData.val() % 1 === 0 && newData.val() >= 0 && newData.val() <= 4294967295"
+              },
+              "truncated": {
+                ".validate": "newData.isBoolean()"
+              },
+              "recoveredIncomplete": {
+                ".validate": "newData.isBoolean()"
+              },
+              "countersPartial": {
+                ".validate": "newData.isBoolean()"
+              },
+              "sourceMetadataGeneration": {
+                ".validate": "newData.isString() && newData.val().matches(/^[1-9][0-9]{0,19}$/)"
+              },
+              "sessionTimeValid": {
+                ".validate": "newData.parent().child('schemaVersion').val() === 2 && newData.isBoolean()"
+              },
+              "sessionStartEpochMs": {
+                ".validate": "newData.parent().child('schemaVersion').val() === 2 && newData.isString() && ((newData.parent().child('sessionTimeValid').val() === true && newData.val().matches(/^[1-9][0-9]{12,19}$/)) || (newData.parent().child('sessionTimeValid').val() === false && newData.val() === '0'))"
+              },
+              "sessionStartCaptureTimestampUs": {
+                ".validate": "newData.parent().child('schemaVersion').val() === 2 && newData.isString() && newData.val().matches(/^(0|[1-9][0-9]{0,19})$/)"
+              },
+              "sessionEndTimeValid": {
+                ".validate": "newData.parent().child('schemaVersion').val() === 2 && newData.isBoolean()"
+              },
+              "sessionEndEpochMs": {
+                ".validate": "newData.parent().child('schemaVersion').val() === 2 && newData.parent().child('sessionEndTimeValid').val() === true && newData.isString() && newData.val().matches(/^[1-9][0-9]{12,19}$/)"
+              },
+              "sessionBootId": {
+                ".validate": "newData.parent().child('schemaVersion').val() === 2 && newData.isNumber() && newData.val() % 1 === 0 && newData.val() >= 1 && newData.val() <= 4294967295"
+              },
+              "timeSource": {
+                ".validate": "newData.parent().child('schemaVersion').val() === 2 && newData.isString() && newData.val() === 'ntp'"
+              },
+              "uploadStartedAt": {
+                ".validate": "newData.isNumber() && newData.val() > 0 && newData.val() <= now"
+              },
+              "uploadCompletedAt": {
+                ".validate": "newData.parent().child('state').val() === 'complete' && newData.isNumber() && newData.val() > 0 && newData.val() <= now"
+              },
+              "manifestCrc32c": {
+                ".validate": "newData.isString() && newData.val().matches(/^[0-9A-F]{8}$/)"
+              },
+              "$other": {
+                ".validate": false
+              }
+            },
+
+            "chunks": {
+              "$chunkKey": {
+                ".write": "auth !== null && auth.uid === 'QUR81xrmojUZu8Y9pJ6sMqKewo23' && $sessionKey.matches(/^s_[0-9]+$/) && $chunkKey.matches(/^[0-9]{6}$/) && root.child('devices').child('PQ-3PH-001').child('sessionData').child($sessionKey).child('manifest').child('state').val() === 'uploading' && newData.exists()",
+                ".validate": "newData.hasChildren(['meta', 'payload']) && newData.child('meta').hasChildren(['schemaVersion', 'chunkIndex', 'firstLogicalIndex', 'lastLogicalIndex', 'recordCount', 'recordSize', 'rawBytes', 'crc32c', 'encoding', 'recordFormat']) && newData.child('meta').child('chunkIndex').val() === root.child('devices').child('PQ-3PH-001').child('sessionData').child($sessionKey).child('manifest').child('nextChunk').val() && ((newData.child('meta').child('chunkIndex').val() < 10 && $chunkKey === '00000' + newData.child('meta').child('chunkIndex').val()) || (newData.child('meta').child('chunkIndex').val() >= 10 && newData.child('meta').child('chunkIndex').val() < 100 && $chunkKey === '0000' + newData.child('meta').child('chunkIndex').val()) || (newData.child('meta').child('chunkIndex').val() >= 100 && newData.child('meta').child('chunkIndex').val() < 1000 && $chunkKey === '000' + newData.child('meta').child('chunkIndex').val()) || (newData.child('meta').child('chunkIndex').val() >= 1000 && newData.child('meta').child('chunkIndex').val() < 10000 && $chunkKey === '00' + newData.child('meta').child('chunkIndex').val()) || (newData.child('meta').child('chunkIndex').val() >= 10000 && newData.child('meta').child('chunkIndex').val() < 100000 && $chunkKey === '0' + newData.child('meta').child('chunkIndex').val()) || (newData.child('meta').child('chunkIndex').val() >= 100000 && $chunkKey === '' + newData.child('meta').child('chunkIndex').val())) && ((newData.child('meta').child('chunkIndex').val() < root.child('devices').child('PQ-3PH-001').child('sessionData').child($sessionKey).child('manifest').child('chunkCount').val() - 1 && newData.child('meta').child('recordCount').val() === 8) || (newData.child('meta').child('chunkIndex').val() === root.child('devices').child('PQ-3PH-001').child('sessionData').child($sessionKey).child('manifest').child('chunkCount').val() - 1 && newData.child('meta').child('recordCount').val() === root.child('devices').child('PQ-3PH-001').child('sessionData').child($sessionKey).child('manifest').child('retainedCount').val() - (root.child('devices').child('PQ-3PH-001').child('sessionData').child($sessionKey).child('manifest').child('chunkCount').val() - 1) * 8)) && newData.child('meta').child('rawBytes').val() === newData.child('meta').child('recordCount').val() * 4432 && newData.child('payload').isString() && newData.child('payload').val().matches(/^[A-Za-z0-9+\/]+={0,2}$/) && ((newData.child('meta').child('recordCount').val() === 1 && newData.child('payload').val().length === 5912) || (newData.child('meta').child('recordCount').val() === 2 && newData.child('payload').val().length === 11820) || (newData.child('meta').child('recordCount').val() === 3 && newData.child('payload').val().length === 17728) || (newData.child('meta').child('recordCount').val() === 4 && newData.child('payload').val().length === 23640) || (newData.child('meta').child('recordCount').val() === 5 && newData.child('payload').val().length === 29548) || (newData.child('meta').child('recordCount').val() === 6 && newData.child('payload').val().length === 35456) || (newData.child('meta').child('recordCount').val() === 7 && newData.child('payload').val().length === 41368) || (newData.child('meta').child('recordCount').val() === 8 && newData.child('payload').val().length === 47276))",
+
+                "meta": {
+                  "schemaVersion": {
+                    ".validate": "newData.isNumber() && newData.val() === 1"
+                  },
+                  "chunkIndex": {
+                    ".validate": "newData.isNumber() && newData.val() % 1 === 0 && newData.val() >= 0 && newData.val() <= 999999"
+                  },
+                  "firstLogicalIndex": {
+                    ".validate": "newData.isString() && newData.val().matches(/^(0|[1-9][0-9]{0,19})$/)"
+                  },
+                  "lastLogicalIndex": {
+                    ".validate": "newData.isString() && newData.val().matches(/^(0|[1-9][0-9]{0,19})$/)"
+                  },
+                  "recordCount": {
+                    ".validate": "newData.isNumber() && newData.val() % 1 === 0 && newData.val() >= 1 && newData.val() <= 8"
+                  },
+                  "recordSize": {
+                    ".validate": "newData.isNumber() && newData.val() === 4432"
+                  },
+                  "rawBytes": {
+                    ".validate": "newData.isNumber() && newData.val() % 1 === 0 && newData.val() >= 4432 && newData.val() <= 35456"
+                  },
+                  "crc32c": {
+                    ".validate": "newData.isString() && newData.val().matches(/^[0-9A-F]{8}$/)"
+                  },
+                  "encoding": {
+                    ".validate": "newData.isString() && newData.val() === 'base64'"
+                  },
+                  "recordFormat": {
+                    ".validate": "newData.isString() && newData.val() === 'PQR1'"
+                  },
+                  "$other": {
+                    ".validate": false
+                  }
+                },
+                "payload": {
+                  ".validate": "newData.isString()"
+                },
+                "$other": {
+                  ".validate": false
+                }
+              }
+            },
+
+            "$other": {
+              ".validate": false
+            }
+          }
+        },
+
+        "$other": {
+          ".validate": false
+        }
+      },
+
+      "$other": {
+        ".validate": false
+      }
+    },
+
+    "$other": {
+      ".validate": false
+    }
+  }
+}
