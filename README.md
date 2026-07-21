@@ -47,7 +47,7 @@ The project combines precision analog signal conditioning, high-speed data acqui
 ## Connectivity
 
 - Wi-Fi connectivity
-- RS-485 communication between STM32 and ESP32
+- UART communication between STM32 and ESP32
 - Remote monitoring
 - Web-based dashboard
 - Wireless data transfer
@@ -115,7 +115,7 @@ Responsible for:
 
 ## Processing Hardware
 
-### STM32H7
+### STM32F4
 
 - Primary real-time processing controller
 - Digital signal processing
@@ -161,7 +161,7 @@ Responsible for:
 
 # Signal Processing
 
-The system continuously samples voltage and current waveforms using the STM32H7 ADC.
+The system continuously samples voltage and current waveforms using the STM32F4 ADC.
 
 The acquired samples undergo several DSP stages including:
 
