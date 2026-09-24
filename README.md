@@ -4,7 +4,7 @@
 
 The Smart Power Quality Analyzer is an embedded measurement and monitoring system developed for real-time analysis of electrical power quality in single-phase AC power systems. The device continuously acquires voltage and current waveforms, performs high-speed digital signal processing, and provides comprehensive power quality parameters through an intuitive graphical user interface and wireless monitoring platform.
 
-The system is designed around a dual-microcontroller architecture consisting of an STM32H7 as the primary real-time processing unit and an ESP32-S3 dedicated to user interface management, wireless communication, and data visualization. By separating deterministic signal processing from networking and display tasks, the analyzer achieves high measurement accuracy while maintaining a responsive user interface.
+The system is designed around a dual-microcontroller architecture consisting of an STM32F4 as the primary real-time processing unit and an ESP32-S3 dedicated to user interface management, wireless communication, and data visualization. By separating deterministic signal processing from networking and display tasks, the analyzer achieves high measurement accuracy while maintaining a responsive user interface.
 
 The project combines precision analog signal conditioning, high-speed data acquisition, embedded DSP algorithms, graphical visualization, PCB design, and IoT connectivity into a single integrated platform suitable for laboratory, industrial, and educational applications.
 
@@ -70,7 +70,7 @@ The project combines precision analog signal conditioning, high-speed data acqui
 
 The analyzer is divided into two independent processing sections.
 
-## STM32H7 Processing Unit
+## STM32F4 Processing Unit
 
 Responsible for:
 
@@ -182,7 +182,7 @@ The processed information is transmitted to the ESP32-S3 for visualization and w
 
 ## STM32 ↔ ESP32
 
-Communication is performed through an RS-485 interface, providing reliable high-speed data transfer between the processing unit and the user interface module.
+Communication is performed through UART interface, providing reliable high-speed data transfer between the processing unit and the user interface module.
 
 Transmitted data includes:
 
@@ -243,7 +243,7 @@ The PCB incorporates:
 - Native USB programming
 - TFT graphics library
 - Wi-Fi stack
-- UART/RS-485 communication
+- UART communication
 
 
 # Development Tools
@@ -272,4 +272,3 @@ The PCB incorporates:
 
 **Development Status:** Finished
 
-The hardware architecture, embedded firmware, PCB design, communication framework, and graphical user interface are in the final stages of development and integration.
